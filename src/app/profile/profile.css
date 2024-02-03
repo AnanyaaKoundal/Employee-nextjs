@@ -50,23 +50,36 @@ h2::before {
 }
 
 .show .img {
-    width: 30%;
     padding-right: 25px;
     margin-top: 5%;
 }
 
 .show img {
     width: 200px;
+    height: 200px; 
     border-radius: 50%;
+    object-fit: cover;
+    background-color: white;
 }
+
+
 
 .line {
     width: 2px;
     background-color: white;
+    margin-right: 5px;
 }
 
 .details {
     font-family: 'Playfair Display', serif;
     padding: 8px;
     writing-mode: 60%;
+}
+
+.card-image{
+    width: 200px;
+    height: 200px; 
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: white;
 }

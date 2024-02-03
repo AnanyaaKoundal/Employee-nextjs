@@ -8,7 +8,7 @@ interface Employee {
     name: string;
     email: string;
     mobile: number;
-    // Add other fields as needed
+    coverImage:string;
 }
 
 export default function EmployeesPage() {
@@ -45,9 +45,9 @@ export default function EmployeesPage() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 pt-20">
+            <div className="flex mb-4 mt-4 justify-between">
             <h1 className="text-2xl font-bold mb-4">Employees</h1>
-            <div className="flex mb-4">
                 <input
                     type="text"
                     placeholder="Search by mobile number"
@@ -62,6 +62,9 @@ export default function EmployeesPage() {
                         key={employee._id}
                         className="bg-white rounded-lg shadow-md p-4"
                     >
+                        <div className="img ">
+                            <img className="card-image" src={employee &&employee.coverImage} />
+                        </div>
                         <h2 className="text-xl font-semibold mb-2">{employee.name}</h2>
                         <p className="text-gray-600">Email: {employee.email}</p>
                         <p className="text-gray-600">Mobile no: {employee.mobile}</p>

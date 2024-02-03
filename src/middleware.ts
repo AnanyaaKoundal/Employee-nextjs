@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   const token= request.cookies.get('token')?.value||"";
   
   if(isPublic && token){
-    return NextResponse.redirect(new URL('/', request.nextUrl))
+    return NextResponse.redirect(new URL('/profile', request.nextUrl))
   }
   if(!isPublic && !token){
     return NextResponse.redirect(new URL('/login', request.nextUrl))
@@ -18,5 +18,5 @@ export function middleware(request: NextRequest) {
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/','/login', '/profile', '/add-employee'],
+  matcher: ['/','/login', '/profile', '/add-employee', '/search-employee'],
 }

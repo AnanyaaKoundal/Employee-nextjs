@@ -4,10 +4,14 @@ import jwt from "jsonwebtoken";
 export const getDataFromtoken= (request: NextRequest)=>{
     try {
         const token=request.cookies.get('token')?.value || '';
+        if (!token) {
+            console.log("Token not found in cookies");
+            return null;
+        }
         const decodedToken:any= jwt.verify(token, process.env.TOKEN_SECRET!)
         return decodedToken.id;
     } catch (error: any) {
-        console.log("Error in getDataFromToken")
+        console.log("Error in getDataFromToken", error.message)
         return null;       
     }
 }

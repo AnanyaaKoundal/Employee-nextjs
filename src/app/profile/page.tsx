@@ -1,23 +1,21 @@
 "use client"
 import axios from "axios"
 import Link from "next/link"
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface UserData {
     email: string;
     name: String;
-    mobile: Number;
-    DOB: Date;
-    // coverImage:string;
+    mobile: number;
+    DOB: string;
+    coverImage:string;
 }
 
 export default function UserProfilePage({ params }: any) {
     const [data, setData] = useState<UserData | "">("");
     useEffect(() => {
         const getUserDetails = async () => {
-            const res = await axios.get('/api/users/me')
+            const res = await axios.get('/api/users/me');
             setData(res.data.data);
             console.log(data)
         }
@@ -42,11 +40,12 @@ export default function UserProfilePage({ params }: any) {
                             <h3><b>Email</b></h3>
                             {data && data.email}<br /> <br />
                             <h3><b>Date of Birth</b></h3>
-                            {data && data.DOB}<br /> <br />
+                            {data && data.DOB.split('T')[0]}<br /> <br />
                             <h3><b>Mobile no</b></h3>
                             {data && data.mobile}<br /> <br />
                         </div>
                     </div>
+                <button className="border border-rounded-sm p-2 items-center"><Link href="/profile/edit">Edit</Link></button>
                 </div>
             </div>
         </div>

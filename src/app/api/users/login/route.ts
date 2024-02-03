@@ -9,10 +9,11 @@ export async function POST(request: NextRequest) {
     try {
         const reqBody= await request.json();
         const {email, password}= reqBody;
-        console.log(reqBody);
+        console.log("IN",reqBody);
 
         const user= await User.findOne({email});
         if(!user){
+            console.log("In API", user);
             return NextResponse.json({error:"User does not exist"}, {status: 400});
         }
         console.log("user exists");
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
         if(!validPassword){
             return NextResponse.json({error: "Invalid Password"}, {status: 400});
         }
-        console.log(user);
+        console.log("In API",user);
         //create token data
         const tokenData={
             id: user._id,
