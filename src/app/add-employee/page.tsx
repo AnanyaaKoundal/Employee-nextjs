@@ -17,56 +17,32 @@ export default function NewEmployee() {
         coverImage: "",
         role: ""
     })
-    const handleFileChange = (e: any) => {
-        const file = e.target.files[0];
+    const [imagePreview, setImagePreview] = useState<string>("");
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
         if (file) {
-            if (file.type.startsWith("image/")) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    setUser({ ...user, coverImage: reader.result });
-                };
-                reader.readAsDataURL(file);
-            } else {
-                toast.error("Please select an image file.");
-            }
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImagePreview(reader.result as string);
+                console.log
+                setUser({ ...user, coverImage: reader.result as string });
+            };
+            reader.readAsDataURL(file);
         }
     };
 
-    const handleSignup = async () => {
+    const add = async () => {
         try {
-            // Convert base64 image to file for storing in the database
-            const base64Image = user.coverImage.split(",")[1];
-            const file = new File([atob(base64Image)], "coverImage.jpg", {
-                type: "image/jpeg",
-            });
+            const response = await axios.post("/api/users/addnew", user);
+            console.log("Signup Success", response.data);
 
-            const formData = new FormData();
-            formData.append("name", user.name);
-            formData.append("email", user.email);
-            formData.append("dob", user.dob);
-            formData.append("mobile", user.mobile);
-            formData.append("password", user.password);
-            formData.append("role", user.role);
-            formData.append("coverImage", file);
-
-            const response = await axios.post("/api/users/addnew", formData);
-            toast.success("Employee added successfully.");
-            setUser({
-                name: "",
-                email: "",
-                dob: "",
-                mobile: "",
-                password: "",
-                role: "",
-                coverImage: "", // Clear coverImage field after submission
-            });
-        } catch (error:any) {
-            console.error("Error adding employee:", error.message);
-            toast.error("Failed to add employee.");
+            window.location.reload()
+            router.push("/login")
+        } catch (error: any) {
+            console.log("Error Adding employee", error.message);
         }
-    };
-
-
+    }
     return (
         <div className="flex flex-col items-center justify-center py-2 min-h-screen">
             <h1 className="text-4xl">Add New Employee</h1><br />
@@ -75,11 +51,12 @@ export default function NewEmployee() {
                     <span className="text-gray-700">Cover Image:</span>
                     <input
                         type="file"
-                        onChange={handleFileChange}
+                        accept="image/*"
+                        onChange={handleImageChange}
                         className="mt-1 block w-full rounded-md border border-gray-600 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     />
                 </label>
-                {user.coverImage && (<img width="300px" height="300px" src={user.coverImage} />)}
+                {imagePreview && <img src={imagePreview} alt="Cover Image Preview" width="300px" height="300px" />}
             </div><br />
             <label htmlFor="name"></label>
             <input
@@ -137,11 +114,13 @@ export default function NewEmployee() {
                 <option value="admin">Admin</option>
                 <option value="employee">Employee</option>
             </select>
+            {user.role && (<p>{user.role}</p>)}
 
             <button
                 className="p-2 border border-gray-200 rounded-lg mb-4 focus:outline-none focus:border-gray-500"
-                onClick={handleSignup}
+                onClick={add}
             >Add</button>
         </div>
     )
 }
+

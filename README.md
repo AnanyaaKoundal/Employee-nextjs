@@ -4,3 +4,9 @@ Create a Next Application with mongodb to perform CRUD operation on an employee 
     mobile number , 
     photograph . 
 Search and display employee data in the basis of mobile number .
+
+Add$
+Retrieve$
+Update
+Delete$
+Search $

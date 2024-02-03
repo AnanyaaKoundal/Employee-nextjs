@@ -37,4 +37,5 @@ const userSchema= new mongoose.Schema({
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
 
+delete mongoose.connection.models['User'];
 export default User;

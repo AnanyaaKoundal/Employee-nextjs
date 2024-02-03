@@ -76,16 +76,23 @@ const Navbar = () => {
             >
               <Link href="profile">Profile</Link>
             </li>
-          )}{ isAdmin && (
-            <li
-              key="2"
-              className="nav-links px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 hover:text-white duration-200 link-underline mt-2"
-            >
-              <Link href="add-employee">Add new Employee</Link>
-            </li>
-
-          )
-        }
+          )}
+          {isLoggedIn && isAdmin && (
+            <>
+              <li
+                key="2"
+                className="nav-links px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 hover:text-white duration-200 link-underline mt-2"
+              >
+                <Link href="add-employee">Add new Employee</Link>
+              </li>
+              <li
+                key="3"
+                className="nav-links px-4 cursor-pointer capitalize font-medium text-white hover:scale-105 hover:text-white duration-200 link-underline mt-2"
+              >
+                <Link href="search-employee">Search</Link>
+              </li>
+            </>
+          )}
 
         {isLoggedIn ? (
           <li key="logout">
