@@ -15,7 +15,7 @@ export default function NewEmployee() {
         mobile: "",
         password: "",
         coverImage: "",
-        role: ""
+        role: "admin"
     })
     const [imagePreview, setImagePreview] = useState<string>("");
 

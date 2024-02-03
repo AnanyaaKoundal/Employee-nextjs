@@ -34,7 +34,7 @@ export default function EmployeesPage() {
 
     const handleDelete = async (employeeId: string) => {
         try {
-            await axios.delete(`/api/users/employees/${employeeId}`);
+            await axios.delete(`/api/users/delete/${employeeId}`);
             // Remove the deleted employee from the state
             setEmployees((prevEmployees) =>
                 prevEmployees.filter((employee) => employee._id !== employeeId)
@@ -63,15 +63,15 @@ export default function EmployeesPage() {
                         className="bg-white rounded-lg shadow-md p-4"
                     >
                         <div className="img ">
-                            <img className="card-image" src={employee &&employee.coverImage} />
+                            <img className="card-image" src={employee && employee.coverImage} />
                         </div>
                         <h2 className="text-xl font-semibold mb-2">{employee.name}</h2>
                         <p className="text-gray-600">Email: {employee.email}</p>
                         <p className="text-gray-600">Mobile no: {employee.mobile}</p>
                         <button
-                            onClick={() => handleDelete(employee._id)}
+                            onClick={(e) => handleDelete(employee._id)}
                             className="mt-2 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50"
-                        >
+                        >   
                             Delete
                         </button>
                     </div>
