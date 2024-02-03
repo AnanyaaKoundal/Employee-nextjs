@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 // Define metadata outside of the component
 export const metadata: Metadata = {
-  title: "Chit Chat",
+  title: "EmpServe",
   description: "The blogging App",
 };
 
