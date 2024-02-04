@@ -21,11 +21,6 @@ export async function connect() {
         connection.on('disconnected', () => {
             console.log("MongoDB disconnected");
         });
-
-        process.on('SIGINT', async () => {
-            await mongoose.connection.close();
-            process.exit(0);
-        });
     } catch (err) {
         console.error("Error connecting to MongoDB:", err);
     }
