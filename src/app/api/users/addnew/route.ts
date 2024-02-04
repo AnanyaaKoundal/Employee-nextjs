@@ -7,8 +7,6 @@ connect();
 
 export async function POST(request: NextRequest) {
     try {
-        
-        // Validate required fields in the request body
         const { name, email, dob, mobile, password, coverImage, role } =await request.json();
         if (!name || !email || !dob || !mobile || !password || !role) {
             console.log(name, email, dob, mobile, password, role)
@@ -16,21 +14,16 @@ export async function POST(request: NextRequest) {
         }
         console.log("IN")
         
-        // Check if user already exists
-        
         const existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return NextResponse.json({ error: "User already exists" }, { status: 400 });
         }
-        // Hash the password
+
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
-        
-        // Set isAdmin based on role
+
         const isAdmin = role.toLowerCase() === 'admin';
-        
-        
-        // Create and save new user
+
         const newUser = new User({
             name,
             email: email.toLowerCase(),

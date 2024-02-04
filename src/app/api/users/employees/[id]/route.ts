@@ -5,15 +5,11 @@ import { connect } from "@/dbConfig/dbConfig";
 
 export async function DELETE(request: NextRequest) {
     try {
-        // Extract user ID from token or request body, depending on your authentication method
         const userId = await getDataFromtoken(request);
-
-        // Check if user ID is valid (optional)
         if (!userId) {
             return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
         }
 
-        // Find the user by ID and delete it
         const deletedUser = await User.findByIdAndDelete(userId);
 
         if (!deletedUser) {
